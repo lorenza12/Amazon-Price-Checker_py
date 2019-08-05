@@ -41,11 +41,9 @@ Within the Config.py file there is a run_time varaible that is the time the prog
 
 ### Execution
 
-To start the program, open a command promt in the root directory of the application and enter the command.
-
-```sh
-$ py Price_Checker.pyw
-```
+To start the program, right click on Price_Checker.pyw and open it with Python.
 
 Since it is a .pyw file, no terminal window will be displayed. The program will run in the background and be executed on a daily based on the run_time varaible described above. 
+
+To verify that the program is indeed running, open up task manager and there should be a Python program listed
 
