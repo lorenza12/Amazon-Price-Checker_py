@@ -48,7 +48,7 @@ def main():
                     #if amazon thought we were a robot, try a different header fromat
                     header_counter += 1
 
-                if item_title == None and item_price == None and header_counter == 11:
+                if item_title == None or item_price == None:
                     #couldn't get html but still need to rewrite the unchanged data to the csv
                     print('Unable to get html')
 
@@ -61,7 +61,11 @@ def main():
                     updated_price = Helper_Functions.compare_sale_price(Helper_Functions.compare_current_prices(item_price, current_price), item_sale_price)
 
                     #create list to update csv file 
-                    item_list.extend((url,updated_title,updated_price,purchase_price))
+                    #if the titles or prices we got back in html happen to be blank, write out the old values that were already there
+                    item_list.extend((url,
+                                    (updated_title if updated_title != None or updated_title == '' else current_title),
+                                    (updated_price if updated_price != None or updated_price == '' else current_price),
+                                    purchase_price))
 
                     should_buy = Helper_Functions.compare_purchase_price(updated_price, purchase_price, url, updated_title)
 
