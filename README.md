@@ -45,5 +45,13 @@ To start the program, right click on Price_Checker.pyw and open it with Python.
 
 Since it is a .pyw file, no terminal window will be displayed. The program will run in the background and be executed on a daily based on the run_time varaible described above. 
 
-To verify that the program is indeed running, open up task manager and there should be a Python program listed
+To verify that the program is indeed running, open up task manager and there should be a Python program listed.
 
+If you wish to run the program manually without a scheduled runtime, open a command prompt and navigate to the repository folder.
+ 
+run the command:
+```sh
+$ py Price_Checker_Manual.py
+```
+
+This will immediately execute the script regardless of the Config file run_time setting. 
