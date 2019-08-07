@@ -5,11 +5,23 @@ import Email_Service
 import Config
 
 def compare_titles(html_title, csv_title):
-    return (html_title.strip() if html_title != csv_title else csv_title.strip())
+    if html_title != None:
+        if html_title.strip() != csv_title.strip():
+            return html_title.strip()
+        else:
+            return csv_title.strip()
+    else:
+        return None
 
 
 def compare_current_prices(html_price, current_price):
-    return (html_price.strip() if html_price != current_price else current_price.strip())
+    if html_price != None:
+        if html_price.strip() != current_price.strip():
+            return html_price.strip()
+        else:
+            return current_price.strip()
+    else:
+        return None
 
 
 
