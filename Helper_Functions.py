@@ -5,6 +5,7 @@ import Email_Service
 import Config
 
 def compare_titles(html_title, csv_title):
+    #Check if the item title has changed on Amazon from what is in the csv already
     if html_title != None:
         if html_title.strip() != csv_title.strip():
             return html_title.strip()
@@ -15,6 +16,7 @@ def compare_titles(html_title, csv_title):
 
 
 def compare_current_prices(html_price, current_price):
+    #Check if the price has changed on Amazon from what is in the csv already
     if html_price != None:
         if html_price.strip() != current_price.strip():
             return html_price.strip()
@@ -37,13 +39,13 @@ def compare_sale_price(item_price, sale_price):
 
  
 def compare_purchase_price(html_price, current_purchase_price, url, item_title):
+    #Compres the items price to the desired price and will return True if it is at or below it, false otherwise
     if (current_purchase_price != None and current_purchase_price.strip() != '') and html_price != None:
         if price_to_float(html_price) <= price_to_float(current_purchase_price):
             return True
         else:
             return False
     else:
-        #log/email that a purchase price is needed
         no_purchase_price_notification(item_title, url)
         return False
 
@@ -51,7 +53,6 @@ def compare_purchase_price(html_price, current_purchase_price, url, item_title):
 
 def purchase_notification(item_title, new_price, url):
     #try and email the error. If fail, write to log
-    
     if Config.email_notifications:    
         try:
             subject = f'Your item {item_title} is ready to purchase!'
@@ -77,8 +78,7 @@ def purchase_notification(item_title, new_price, url):
 
 
 def no_purchase_price_notification(item_title, url):
-    #try and email the error. If fail, write to log
-    
+    #try and email the error. If fail, write to log 
     if Config.email_notifications:    
         try:
             item = item_title if item_title != None else url
@@ -103,10 +103,9 @@ def no_purchase_price_notification(item_title, url):
         write_log(message,1)
 
 
-#/Email/email_pruchase_template.htm
+
 def open_email_template(template_dir):
     #return string representation of the email template
-    
     try:
         with open(template_dir, 'r') as email_template:
             str_tempalte = ''
@@ -129,8 +128,8 @@ def update_purchase_tempalte(email_template, item_name, item_price, url):
 
     return updated_tempalte
 
-def update_price_tempalte(email_template, item_name, url):
 
+def update_price_tempalte(email_template, item_name, url):
     #if there is no item title use the url as reference
     item = item_name if item_name != '' else url
     
@@ -138,8 +137,8 @@ def update_price_tempalte(email_template, item_name, url):
 
     return updated_tempalte
 
+
 def write_log(log_message, type=1):
-    
     # 1==alert, 0==error
     log_head = '[ALERT]' if type == 1 else '[ERROR]'
     
@@ -157,6 +156,7 @@ def write_log(log_message, type=1):
     
 
 def price_to_float(price):
+    #formats a string price into a float so we can perform equality operations
     if '$' in price:
         price = price.strip('$')
     
@@ -165,6 +165,7 @@ def price_to_float(price):
 
 
 def format_price(price):
+    #formats a floating number into a string dollar amount
     try:
         if '$' not in price:
             dollar_price = '$' + str(price)
