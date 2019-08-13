@@ -170,7 +170,8 @@ def format_price(price):
         if '$' not in price:
             dollar_price = '$' + str(price)
             return dollar_price
-
+        else:
+            return price
     except:
         return price
     
