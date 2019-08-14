@@ -50,7 +50,8 @@ def main():
 
                 if item_title == None or item_price == None:
                     #couldn't get html but still need to rewrite the unchanged data to the csv
-                    print('Unable to get html')
+                    no_html = f'Unable to get html for {current_title}'
+                    Helper_Functions.write_log(no_html,0)
 
                     item_list.extend((url, current_title, Helper_Functions.format_price(current_price), Helper_Functions.format_price(purchase_price)))
 
@@ -63,7 +64,7 @@ def main():
                     #create list to update csv file 
                     #if the titles or prices we got back in html happen to be blank, write out the old values that were already there
                     item_list.extend((url,
-                                    (Helper_Functions.format_price(updated_title) if updated_title != None and updated_title != '' else Helper_Functions.format_price(current_title)),
+                                    (updated_title if updated_title != None and updated_title != '' else current_title),
                                     (Helper_Functions.format_price(updated_price) if updated_price != None and updated_price != '' else Helper_Functions.format_price(current_price)),
                                     Helper_Functions.format_price(purchase_price)))
 
@@ -72,7 +73,7 @@ def main():
                     if should_buy:
                         #send email to buy
                         
-                        Helper_Functions.purchase_notification(item_title, updated_price, url)
+                        Helper_Functions.purchase_notification(item_title, Helper_Functions.format_price(updated_price), url)
 
                     csv_out.append(item_list)
         
