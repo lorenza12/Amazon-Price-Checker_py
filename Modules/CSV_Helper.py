@@ -1,7 +1,9 @@
 import csv
-import Config
-import Helper_Functions
+import sys
 
+sys.path.append('../')
+import Config
+import Modules.Helper_Functions as Helper_Functions        
 
 
 
@@ -47,8 +49,13 @@ def write_csv_file(csv_data_list, csv_file):
                 
 
 
+
 if __name__ == "__main__":
     #testing
-    file_in = open_csv_file(Config.csv_directory)
+    import os
+    csv_directory = os.path.dirname(os.getcwd()) + '/CSV/Price_Checker_Urls.csv'
+    
+    file_in = open_csv_file(csv_directory)
+    
     for item in file_in:
         print(item)

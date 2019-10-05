@@ -1,8 +1,13 @@
 from string import Template
 import os
 import datetime
-import Email_Service
+import sys
+
+sys.path.append('../')
 import Config
+import Modules.Email_Service
+
+
 
 def compare_titles(html_title, csv_title):
     #Check if the item title has changed on Amazon from what is in the csv already
@@ -140,7 +145,10 @@ def update_price_tempalte(email_template, item_name, url):
 
 def write_log(log_message, type=1):
     # 1==alert, 0==error
-    log_head = '[ALERT]' if type == 1 else '[ERROR]'
+
+    purge_log()
+
+    log_head = '[INFO]' if type == 1 else '[ERROR]'
     
     date_time = datetime.datetime.now()
     
@@ -148,12 +156,24 @@ def write_log(log_message, type=1):
     message = f'Message: {log_message} \n'
 
     #append logs to the end of the file. a means append to file + means create file if it doesn't exist
-    with open('Price_Checker_Log.txt', 'a+') as log_file:
+    with open(Config.log_file, 'a+') as log_file:
         log_file.write(header)
         log_file.write('\n')
         log_file.write(message)
         log_file.write('\n')
     
+
+def purge_log():
+	#purges the log file after it reaches a desired time set in the Config file
+	try:
+		if (os.path.exists(Config.log_file) and os.path.getsize(Config.log_file) >= Config.purge_size):
+			os.remove(Config.log_file)
+	except FileNotFoundError:
+		#log file doesn't exist so do nothing
+		pass
+	except Exception as e:
+		write_log(f'Failure purging log file - {e}',0)
+
 
 def price_to_float(price):
     #formats a string price into a float so we can perform equality operations
@@ -174,4 +194,3 @@ def format_price(price):
             return price
     except:
         return price
-    

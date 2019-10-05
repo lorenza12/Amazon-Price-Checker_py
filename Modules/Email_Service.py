@@ -1,7 +1,10 @@
 import smtplib
 from email.message import EmailMessage
+
+import sys
+sys.path.append('../')
 import Config
-import Helper_Functions
+import Modules.Helper_Functions
 
 
 def email_html(subject, html, to_addresses=Config.to_email_addresses, from_address=Config.gmail_from_address):

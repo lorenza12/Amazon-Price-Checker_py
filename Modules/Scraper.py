@@ -2,8 +2,10 @@ import requests
 import urllib.request
 from fake_useragent import UserAgent
 from bs4 import BeautifulSoup
-import Helper_Functions
 
+import sys
+sys.path.append('../')
+import Modules.Helper_Functions as Helper_Functions
 
 
 def request_html(url ,header_counter=1, timeout_time=15):
@@ -99,6 +101,7 @@ def get_deal_price(html):
 
 if __name__ == "__main__":
     #testing - run this file directly to check if working
+    
     url = 'https://www.amazon.com/Official-Python-Logo-Developers-T-Shirt/dp/B07QR5K7VZ/ref=sr_1_65?keywords=python&qid=1564959822&s=gateway&sr=8-65'
  
     response_html = request_html(url)
@@ -110,3 +113,4 @@ if __name__ == "__main__":
     print('title: ' + (title if title != None else '-'))
     print('price: ' + (price if price != None else '-'))
     print('sale price: ' + (sale if sale != None else '-'))
+    

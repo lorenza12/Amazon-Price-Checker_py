@@ -1,7 +1,7 @@
 import os
 
 #----------------------------------------------------------------------------#
-#                            Directory Locations                               
+#                            Directory Locations                             #  
 #----------------------------------------------------------------------------#
 #leave these the defualt unless you wish to use another folder elsewhere
 
@@ -14,7 +14,7 @@ no_price_email_template_dir = os.getcwd() + '/Email/email_no_price_template.html
 
 
 #----------------------------------------------------------------------------#
-#                               Email Settings                               
+#                               Email Settings                               #
 #----------------------------------------------------------------------------#
 
 #check the README for more information on what is needed to set this up
@@ -30,7 +30,21 @@ email_notifications = True #whether notifications should be emailed or just logg
 
 
 #----------------------------------------------------------------------------#
-#                               Execution Time                               
+#                               Execution Time                               #
 #----------------------------------------------------------------------------#
 
-run_time = '08:00' #what time the program should execute every day (24 hr HH:MM)
+#run_time = '08:00' #what time the program should execute every day (24 hr HH:MM)
+#run_time_two = '15:30'
+
+#what time(s) the program should run at (24 hr HH:MM) -> ['08:00', '15:30'] (run everyday at 8:00am and 3:30pm)
+run_times = ['08:00','12:00','15:30', '17:00'] 
+
+
+#----------------------------------------------------------------------------#
+#                                 Log Settings                               #
+#----------------------------------------------------------------------------#
+
+log_file = 'Price_Checker_Log.txt'
+
+kilabytes = 5 #size the log file will reach before resetting
+purge_size =  kilabytes * 1024
